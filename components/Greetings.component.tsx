@@ -1,0 +1,40 @@
+import Button from './Button.component';
+import Card from './Card.component';
+import Image from 'next/image';
+import React from 'react';
+import { cookies } from 'next/headers';
+import { delay } from '@/lib/async';
+import { getUserFromCookie } from '@/lib/auth';
+import img from '@/assets/images/marketing-manager.png';
+
+const getData = async () => {
+	await delay(5000);
+	const user = await getUserFromCookie(cookies());
+	return user;
+};
+
+const Greetings = async () => {
+	const user = await getData();
+	return (
+		<Card className='w-full py-4 relative'>
+			<div className='mb-4'>
+				<h1 className='text-3xl text-gray-700 font-bold mb-4'>
+					Hello, {user?.firstName}
+				</h1>
+				<h4 className='text-xl text-gray-400'>
+					Check your daily tasks and schedule
+				</h4>
+			</div>
+			<div>
+				<Button size='large'>Today's Schedule</Button>
+			</div>
+
+			<Image
+				src={img}
+				alt='busy person on computer'
+				className='w-1/3 absolute top-[-50px] right-0'
+			/>
+		</Card>
+	);
+};
+export default Greetings;
