@@ -28,7 +28,7 @@ export const createJWT = (user: UserModel | any) => {
 export const validateJWT = async (jwt) => {
   const { payload } = await jwtVerify(
     jwt,
-    new TextEncoder().encode(jwt_secret);
+    new TextEncoder().encode(jwt_secret)
   );
 
   return payload.payload as any;
